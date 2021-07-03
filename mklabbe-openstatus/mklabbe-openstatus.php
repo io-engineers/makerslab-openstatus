@@ -11,6 +11,9 @@
  * Last Change:   2021-07-03
  */
 
+ $plugin_url = WP_PLUGIN_URL . '/mklabbe-openstatus';
+ $options = array();
+
 //Add Makerslab Settings Page to WP Settings Menu
 function mklabbe_openstatus_menu(){
     add_options_page( 
@@ -23,29 +26,29 @@ function mklabbe_openstatus_menu(){
 
 add_action( 'admin_menu','mklabbe_openstatus_menu' );
 
+//Plugin Settings page
 function mklabbe_openstatus_options_page() {
 
     if(!current_user_can( 'manage_options')){
         wp_die( 'You do not have enough permissions to view this page', 'Error: No Permission');
     }
-    echo "  <h1>Makerslab Open Status Plugin - Settings</h1>";
-    echo "  <p>This plugin is used to connect to the open/close button api and display the realtime status on the makerslab.be webpage.</p>
-            <br class='clear' />";
-    echo "  <table class='form-table'>
-                <tr>
-                    <th class='row-title'></th>
-                </tr>
-                <tr valign='top'>
-                    <td scope='row'>
-                        <label for='tablecell'>API-URL:</label>
-                        <input type='text' value='https://dev.nealjoos.be/deshack/openstatus/api.json' class='regular-text' />
-                        <input class='button-primary' type='submit' name='save-api' value='Save' />
-                    </td>
-                </tr>
-            </table>
-            <br class='clear' />
-        ";
+
+    if(isset($_POST['mklabbe_openstatus_txtapiurl']) && !empty($_POST['mklabbe_openstatus_txtapiurl'])){
+        $api_url = esc_html( $_POST['mklabbe_openstatus_txtapiurl'] );
+
+    }
+    //Set global variables
+    global $plugin_url;
+    global $options;
+    //Add-in the page wrapper
+    require('inc/options-page-wrapper.php'):
 
 }
+
+//Add CSS file to backend of plugin
+function mklabbe_openstatus_backend_styles(){
+    wp_enqueue_style( 'mklabbe_openstatus_backend_css', plugins_url('mklabbe-openstatus/mklab-openstatus-css.css'));
+}
+add_action( 'admin_header', 'mklabbe_openstatus_backend_styles');
 
 ?>
