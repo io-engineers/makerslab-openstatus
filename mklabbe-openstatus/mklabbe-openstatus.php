@@ -32,11 +32,11 @@ function mklabbe_openstatus_options_page() {
     if(!current_user_can( 'manage_options')){
         wp_die( 'You do not have enough permissions to view this page', 'Error: No Permission');
     }
-
+    /*
     if(isset($_POST['mklabbe_openstatus_txtapiurl']) && !empty($_POST['mklabbe_openstatus_txtapiurl'])){
         $api_url = esc_html( $_POST['mklabbe_openstatus_txtapiurl'] );
 
-    }
+    }*/
     //Set global variables
     global $plugin_url;
     global $options;
@@ -45,10 +45,11 @@ function mklabbe_openstatus_options_page() {
 
 }
 
+/*
 //Add CSS file to backend of plugin
 function mklabbe_openstatus_backend_styles(){
     wp_enqueue_style( 'mklabbe_openstatus_backend_css', plugins_url('mklabbe-openstatus/mklab-openstatus-css.css'));
 }
 add_action( 'admin_header', 'mklabbe_openstatus_backend_styles');
-
+*/
 ?>
